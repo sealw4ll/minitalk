@@ -6,37 +6,45 @@
 /*   By: wting <wting@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/10 22:18:46 by wting             #+#    #+#             */
-/*   Updated: 2022/08/11 13:27:25 by wting            ###   ########.fr       */
+/*   Updated: 2022/08/11 22:08:06 by wting            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minitalk.h"
 
-
-//reveive
-
 void	receiver(int sig, siginfo_t *info, void *context)
 {
-	// int msg = 2;
+	static int	msg;
+	static int	count;
 
 	(void)context;
 	if (sig == SIGUSR1)
-		write(1, "1\n", 2);
-	else if (sig == SIGUSR2)
-		write(1, "0\n", 2);
-	// printf("msg: %i \n", msg);
+		msg += 1;
+	if (++count == 8)
+	{
+		if (msg == 0)
+			kill(info->si_pid, SIGUSR2);
+		else
+			write(1, &msg, 1);
+		msg = 0;
+		count = 0;
+	}
+	else
+		msg <<= 1;
+	usleep(50);
 }
 
-int main(void)
+int	main(void)
 {
-	pid_t pid;
-	struct sigaction sa;
+	pid_t				pid;
+	struct sigaction	sa;
 
 	pid = getpid();
 	sa.sa_sigaction = receiver;
+	sa.sa_flags = SA_SIGINFO;
 	sigaction(SIGUSR1, &sa, NULL);
 	sigaction(SIGUSR2, &sa, NULL);
-	ft_printf("%i \n", (int)pid);
+	ft_printf("pid: %i \n", (int)pid);
 	while (1)
 		pause();
 	return (0);
