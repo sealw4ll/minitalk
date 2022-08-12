@@ -6,7 +6,7 @@
 /*   By: wting <wting@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/10 22:18:47 by wting             #+#    #+#             */
-/*   Updated: 2022/08/11 22:04:38 by wting            ###   ########.fr       */
+/*   Updated: 2022/08/12 12:33:57 by wting            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,8 @@ void	confirmation(int sig)
 
 void	bit_calc(char msg, int pid)
 {
-	int count;
-	int shifter;
+	int	count;
+	int	shifter;
 
 	count = 0;
 	shifter = 7;
@@ -55,7 +55,7 @@ int	main(int argc, char **argv)
 	}
 	signal(SIGUSR2, confirmation);
 	pid = (pid_t)ft_atoi(argv[1]);
-	message = argv[2]; 
+	message = argv[2];
 	while (*message)
 	{
 		bit_calc(*message, pid);

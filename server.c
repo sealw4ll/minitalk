@@ -6,7 +6,7 @@
 /*   By: wting <wting@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/10 22:18:46 by wting             #+#    #+#             */
-/*   Updated: 2022/08/11 22:10:43 by wting            ###   ########.fr       */
+/*   Updated: 2022/08/12 12:36:28 by wting            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ void	receiver(int sig, siginfo_t *info, void *context)
 	}
 	else
 		msg <<= 1;
-	usleep(50);
+	usleep(20);
 }
 
 int	main(void)
